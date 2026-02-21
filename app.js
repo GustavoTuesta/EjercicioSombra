@@ -78,6 +78,7 @@ class TaskManager {
     init() {
         this.render();
         this.setupEventListeners();
+        this.setupRealTimeValidation();
     }
 
     setupEventListeners() {
@@ -134,8 +135,7 @@ class TaskManager {
         const title = titleInput.value.trim();
         const description = descInput.value.trim();
 
-        if (!title) {
-            this.showFeedback('El título es obligatorio', 'error');
+        if (!this.validateField(titleInput, 'task-title-error')) {
             return;
         }
 
@@ -149,10 +149,13 @@ class TaskManager {
 
     handleEditTask() {
         const id = document.getElementById('edit-task-id').value;
-        const title = document.getElementById('edit-title').value.trim();
+        const titleInput = document.getElementById('edit-title');
+        const title = titleInput.value.trim();
         const description = document.getElementById('edit-description').value.trim();
 
-        if (!title) return;
+        if (!this.validateField(titleInput, 'edit-title-error')) {
+            return;
+        }
 
         this.tasks = this.tasks.map(task =>
             task.id === id ? { ...task, title, description } : task
@@ -246,9 +249,43 @@ class TaskManager {
         this.feedback.className = `feedback ${type}`;
 
         setTimeout(() => {
-            this.feedback.textContent = '';
-            this.feedback.className = 'feedback';
+            if (this.feedback.textContent === message) {
+                this.feedback.textContent = '';
+                this.feedback.className = 'feedback';
+            }
         }, 3000);
+    }
+
+    validateField(input, errorId) {
+        const value = input.value.trim();
+        const errorElement = document.getElementById(errorId);
+
+        if (!value) {
+            input.classList.add('c-input--error');
+            errorElement.classList.add('is-visible');
+            input.focus();
+            return false;
+        }
+
+        input.classList.remove('c-input--error');
+        errorElement.classList.remove('is-visible');
+        return true;
+    }
+
+    setupRealTimeValidation() {
+        const inputs = [
+            { field: document.getElementById('task-title'), error: 'task-title-error' },
+            { field: document.getElementById('edit-title'), error: 'edit-title-error' }
+        ];
+
+        inputs.forEach(({ field, error }) => {
+            field.addEventListener('input', () => {
+                if (field.value.trim()) {
+                    field.classList.remove('c-input--error');
+                    document.getElementById(error).classList.remove('is-visible');
+                }
+            });
+        });
     }
 
     escapeHTML(str) {
