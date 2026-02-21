@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estándar UI | CRUD Ejemplo</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- UI Standards Base -->
+    <link rel="stylesheet" href="../ui-standards-base.css">
+    <style>
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header__title {
+            font-size: 2.5rem;
+            color: var(--ui-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .header__subtitle {
+            color: var(--ui-text-light);
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid var(--ui-border);
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-item__content {
+            flex: 1;
+        }
+
+        .task-item__title {
+            font-weight: 500;
+            display: block;
+        }
+
+        .task-item__desc {
+            font-size: 0.875rem;
+            color: var(--ui-text-light);
+        }
+
+        .task-item__actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="l-container">
+        <header class="header">
+            <h1 class="header__title">Gestor de Tareas</h1>
+            <p class="header__subtitle">Ejemplo aplicando el Estándar UI</p>
+        </header>
+
+        <main>
+            <!-- Form Card -->
+            <section class="c-card">
+                <h2 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Nueva Tarea</h2>
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-title" class="form-label">Título de la tarea</label>
+                        <input type="text" id="task-title" class="c-input" placeholder="Ej: Comprar leche" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-desc" class="form-label">Descripción (opcional)</label>
+                        <textarea id="task-desc" class="c-textarea" rows="2"
+                            placeholder="Detalles adicionales..."></textarea>
+                    </div>
+                    <button type="submit" class="c-button c-button--primary" style="width: 100%;">
+                        <span>Añadir Tarea</span>
+                    </button>
+                </form>
+            </section>
+
+            <!-- List Section -->
+            <section>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2 style="font-size: 1.125rem;">Tus Tareas</h2>
+                    <span id="task-count" class="c-badge c-badge--success">0 tareas</span>
+                </div>
+                <div id="task-list-container" class="c-card" style="padding: 0;">
+                    <div id="empty-state" style="padding: 2rem; text-align: center; color: var(--ui-text-light);">
+                        No hay tareas pendientes. ¡Buen trabajo!
+                    </div>
+                    <div id="task-list"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="c-modal">
+        <div class="c-modal__content">
+            <div class="c-modal__header">
+                <h3>Editar Tarea</h3>
+            </div>
+            <form id="edit-form">
+                <div class="c-modal__body">
+                    <input type="hidden" id="edit-id">
+                    <div class="form-group">
+                        <label for="edit-title" class="form-label">Título</label>
+                        <input type="text" id="edit-title" class="c-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-desc" class="form-label">Descripción</label>
+                        <textarea id="edit-desc" class="c-textarea" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="c-modal__footer">
+                    <button type="button" class="c-button c-button--secondary" id="close-modal">Cancelar</button>
+                    <button type="submit" class="c-button c-button--primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js" type="module"></script>
+</body>
+
+</html>

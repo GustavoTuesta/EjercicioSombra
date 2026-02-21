@@ -1,0 +1,284 @@
+/* 
+ * UI STANDARDS BASE CSS
+ * A clean, minimalist system for pure HTML/JS CRUDs
+ */
+
+:root {
+    /* Design Tokens */
+    --ui-primary: #6366f1;
+    --ui-primary-hover: #4f46e5;
+    --ui-primary-focus: rgba(99, 102, 241, 0.2);
+
+    --ui-success: #22c55e;
+    --ui-danger: #ef4444;
+    --ui-warning: #f59e0b;
+
+    --ui-bg: #f8fafc;
+    --ui-surface: #ffffff;
+
+    --ui-text: #1e293b;
+    --ui-text-light: #64748b;
+
+    --ui-border: #e2e8f0;
+    --ui-border-focus: #6366f1;
+
+    --ui-radius-sm: 8px;
+    --ui-radius-md: 12px;
+
+    --ui-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --ui-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --ui-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+    --ui-transition: all 0.2s ease;
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--ui-bg);
+    color: var(--ui-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Layout */
+.l-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Components: Card */
+.c-card {
+    background: var(--ui-surface);
+    border-radius: var(--ui-radius-md);
+    box-shadow: var(--ui-shadow-md);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--ui-border);
+}
+
+/* Components: Button */
+.c-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: var(--ui-radius-sm);
+    cursor: pointer;
+    transition: var(--ui-transition);
+    border: 1px solid transparent;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-family: inherit;
+}
+
+.c-button--primary {
+    background-color: var(--ui-primary);
+    color: white;
+}
+
+.c-button--primary:hover {
+    background-color: var(--ui-primary-hover);
+}
+
+.c-button--secondary {
+    background-color: var(--ui-surface);
+    color: var(--ui-text);
+    border-color: var(--ui-border);
+}
+
+.c-button--secondary:hover {
+    background-color: var(--ui-bg);
+}
+
+.c-button--danger {
+    background-color: var(--ui-danger);
+    color: white;
+}
+
+.c-button--danger:hover {
+    filter: brightness(0.9);
+}
+
+.c-button:active {
+    transform: scale(0.98);
+}
+
+.c-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Components: Form Fields */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--ui-text);
+}
+
+.c-input,
+.c-textarea,
+.c-select {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-size: 1rem;
+    border-radius: var(--ui-radius-sm);
+    border: 1px solid var(--ui-border);
+    background-color: var(--ui-surface);
+    font-family: inherit;
+    transition: var(--ui-transition);
+}
+
+.c-input:focus,
+.c-textarea:focus,
+.c-select:focus {
+    outline: none;
+    border-color: var(--ui-border-focus);
+    box-shadow: 0 0 0 3px var(--ui-primary-focus);
+}
+
+.c-input--error {
+    border-color: var(--ui-danger);
+}
+
+.c-input--error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Components: Modal */
+.c-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.c-modal--active {
+    display: flex;
+}
+
+.c-modal__content {
+    background: var(--ui-surface);
+    border-radius: var(--ui-radius-md);
+    width: 100%;
+    max-width: 500px;
+    box-shadow: var(--ui-shadow-lg);
+    position: relative;
+    animation: modalIn 0.3s ease-out;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.c-modal__header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--ui-border);
+}
+
+.c-modal__body {
+    padding: 1.5rem;
+}
+
+.c-modal__footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--ui-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+/* Components: Badge */
+.c-badge {
+    display: inline-flex;
+    padding: 0.125rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.c-badge--success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.c-badge--warning {
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.c-badge--danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* States */
+.is-hidden {
+    display: none !important;
+}
+
+.is-loading {
+    position: relative;
+    pointer-events: none;
+    color: transparent !important;
+}
+
+.is-loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
